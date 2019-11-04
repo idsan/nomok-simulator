@@ -10,7 +10,9 @@
         </div>
         장갑공격력 주문서
         <button @click="scrolling(10)">10%</button>
+        <button @click="scrolling(30)">30%</button>
         <button @click="scrolling(60)">60%</button>
+        <button @click="scrolling(70)">70%</button>
         <button @click="scrolling(100)">100%</button>
         <div id="systemMessage">{{ systemMessage }}</div>
         <button v-if="!numOfUpgradesAvailable" @click="reset">재시도</button>
@@ -44,8 +46,28 @@
 
                 if (option === 10 && rndNum <= option) {
                     this.weaponAttack += 3;
+                } else if (option === 30) {
+                    if (rndNum <= option) {
+                        this.weaponAttack += 3;
+                    } else {
+                        if (getRandomIntInclusive(0, 1) === 1) {
+                            this.destroyed();
+                            return;
+                        }
+                        isSucceed = false;
+                    }
                 } else if (option === 60 && rndNum <= option) {
                     this.weaponAttack += 2;
+                } else if (option === 70) {
+                    if (rndNum <= option) {
+                        this.weaponAttack += 2;
+                    } else {
+                        if (getRandomIntInclusive(0, 1) === 1) {
+                            this.destroyed();
+                            return;
+                        }
+                        isSucceed = false;
+                    }
                 } else if (option === 100) {
                     this.weaponAttack += 1;
                 } else {
@@ -61,6 +83,10 @@
                 setTimeout(() => {
                     this.systemMessage = "";
                 }, 1500)
+            },
+            destroyed() {
+                this.systemMessage = "장비가 파괴되었습니다.";
+                this.numOfUpgradesAvailable = 0;
             },
             reset() {
                 this.numOfUpgrades = 0;
