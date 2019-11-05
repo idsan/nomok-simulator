@@ -20,6 +20,9 @@ module.exports = {
         'vue-style-loader',
         'css-loader'
       ]
+    }, {
+      test: /\.(png|jpg)$/,
+      use: 'file-loader'
     }]
   },
   plugins: [
