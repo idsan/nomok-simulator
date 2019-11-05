@@ -8,11 +8,21 @@
             </p>
             <p>업그레이드 가능 횟수 : {{ numOfUpgradesAvailable }}</p>
         </div>
-        <img @click="scrolling(10)" src="./assets/images/scroll_10.png" title="장갑 공격력 주문서 10%">
-        <img @click="scrolling(30)" src="./assets/images/scroll_30.png" title="장갑 공격력 주문서 30%">
-        <img @click="scrolling(60)" src="./assets/images/scroll_60.png" title="장갑 공격력 주문서 60%">
-        <img @click="scrolling(70)" src="./assets/images/scroll_70.png" title="장갑 공격력 주문서 70%">
-        <img @click="scrolling(100)" src="./assets/images/scroll_100.png" title="장갑 공격력 주문서 100%">
+        <div class="scroll" @click="scrolling(10)">
+            <img src="./assets/images/scroll_10.png">장갑 공격력 주문서 10%
+        </div>
+        <div class="scroll" @click="scrolling(30)">
+            <img src="./assets/images/scroll_30.png">장갑 공격력 주문서 30%
+        </div>
+        <div class="scroll" @click="scrolling(60)">
+            <img src="./assets/images/scroll_60.png">장갑 공격력 주문서 60%
+        </div>
+        <div class="scroll" @click="scrolling(70)">
+            <img src="./assets/images/scroll_70.png">장갑 공격력 주문서 70%
+        </div>
+        <div class="scroll" @click="scrolling(100)">
+            <img src="./assets/images/scroll_100.png">장갑 공격력 주문서 100%
+        </div>
         <div id="systemMessage">{{ systemMessage }}</div>
         <button v-if="!numOfUpgradesAvailable" @click="reset">재시도</button>
     </div>
@@ -87,8 +97,10 @@
 
                 playEnchantSound(isSucceed);
 
-                this.systemMessage = (isSucceed) ? `장갑 공격력 주문서 ${option}%가 한 순간 빛나더니 신비로운 힘이 그대로 노가다 목장갑에 전해졌습니다.` : `장갑 공격력 주문서 ${option}%가 한 순간 빛났지만 노가다 목장갑에는 아무런 변화도 일어나지 않았습니다.`;
-                this.numOfUpgradesAvailable--;  
+                const successMessage = `장갑 공격력 주문서 ${option}%가 한 순간 빛나더니 신비로운 힘이 그대로 노가다 목장갑에 전해졌습니다.`;
+                const failureMessage = `장갑 공격력 주문서 ${option}%가 한 순간 빛났지만 노가다 목장갑에는 아무런 변화도 일어나지 않았습니다.`;
+                this.systemMessage = (isSucceed) ? successMessage : failureMessage;
+                this.numOfUpgradesAvailable--; // 
                 setTimeout(() => {
                     this.systemMessage = "";
                 }, 1500)
@@ -108,7 +120,14 @@
 </script>
 
 <style>
-    img {
+    .scroll {
+        padding: 5px;
+        margin-top: 3px;
+        display: inline-block;
         cursor:pointer;
+    }
+
+    .scroll:hover {
+        background: #DADADA;
     }
 </style>
